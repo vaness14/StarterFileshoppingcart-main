@@ -74,5 +74,32 @@ function addIntoCart(course){
                 <a href="#" class="remove" data-id="${course.id}">X</a>
             </td>
         </tr>
+//Add into the shopping cart
+    shoppingCartContent.appendChild(row);
+ //Add course into storage
+    saveIntoStorage(course);
+}
+//Add the courses into the local storage
+function saveIntoStorage(course) {
+ let courses = getCoursesFromStorage();
 
-  `;
+ //Add the course into the array
+    courses.push(course);
+
+    //Convert JSON to String
+    localStorage.setItem('courses', JSON.stringify(courses));
+
+
+}
+//Get the contents from storage
+function getCoursesFromStorage() {
+ let courses;
+//if something exist on the storage then we get the value, otherwiaw create an empty array
+ if(localStorage.getItem('courses') === null) {
+        courses = [];
+    } else {
+        courses = JSON.parse(localStorage.getItem('courses'));
+    }
+    return courses;
+}
+  
