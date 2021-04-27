@@ -102,4 +102,47 @@ function getCoursesFromStorage() {
     }
     return courses;
 }
+//Remove course from the DOM
+function removeCourse(e) {
+ let course, courseId;
+    //Remove from the DOM
+ if(e.target.classList.contains('remove')) {
+        e.target.parentElement.parentElement.remove();
+   course = e.target.parentElement.parentElement;
+courseId = course.querySelector('a').getAttribute('data-id');
+    }
+console.log(courseId);
+//Remove from the Local Storage
+ removeCourseLocalStorage(courseId);
+}
+//Remove from LocalStorage
+function removeCourseLocalStorage(id) {
+    //Get the local storage data
+    let coursesLS = getCoursesFromStorage();
+
+//Loop throught the array and find the index to remove
+    coursesLS.forEach(function(courseLS, index) {
+        if(courseLS.id === id) {
+            coursesLS.splice(index, 1);
+        }
+    });
+
+ //Add the rest of the array
+    localStorage.setItem('courses', JSON.stringify(coursesLS));
+}
+
+//Clears the shopping cart
+function clearCart() {
+    //shoppingCartContent.innerHTML = '';
+
+    while(shoppingCartContent.firstChild) {
+        shoppingCartContent.removeChild(shoppingCartContent.firstChild);
+    }
+//Clear from local storage
+    clearLocalStorage();
+}
+//clear the whole local storage
+function clearLocalStorage() {
+    localStorage.clear();
+}
   
